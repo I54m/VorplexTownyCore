@@ -1,29 +1,40 @@
 package com.i54m.vorplextownycore;
 
+import com.alonsoaliaga.alonsoleaderboards.api.LeaderboardExpansion;
+import com.alonsoaliaga.alonsoleaderboards.enums.OrderType;
 import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.object.Nation;
-import me.robin.leaderheads.api.LeaderHeadsAPI;
-import me.robin.leaderheads.datacollectors.DataCollector;
-import me.robin.leaderheads.objects.BoardType;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class RichNation extends DataCollector {
+public class RichNation extends LeaderboardExpansion {
+
     RichNation() {
-        super("nation-richest", "Towny", BoardType.MONEY, "&bRichest Nations", "richnations", Arrays.asList(null, null, "&6$ {amount}", null), true, String.class);
+        super(Main.getInstance(), "corelb_nation", OrderType.DESCENDING, 3, 10);
+        register();
     }
 
     @Override
-    public List<Map.Entry<?, Double>> requestAll() {
+    public void playEffect(Location location) {
+        location.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, location, 25);
+        location.getWorld().playSound(location, Sound.ENTITY_ZOMBIE_VILLAGER_CONVERTED, 75, 1);
+    }
+
+    @Override
+    public void reloadMessages() {}
+
+    @Override
+    public TreeMap<Integer, Map.Entry<String, String>> getLeaderboardsStringData() {
         try {
-            HashMap<String, Double> nations = new HashMap<>();
+            TreeMap<Integer, Map.Entry<String, String>> nations = new TreeMap<>();
             for (Nation nation : TownyAPI.getInstance().getDataSource().getNations()) {
-                nations.put(nation.getCapital().getName(), nation.getAccount().getHoldingBalance());
+                nations.put((int) nation.getAccount().getHoldingBalance(), new ScoreEntry<>(nation.getName(), nation.getAccount().getHoldingFormattedBalance()));
             }
-            return LeaderHeadsAPI.sortMap(nations);
+            return nations;
         } catch (Exception e) {
             return null;
         }

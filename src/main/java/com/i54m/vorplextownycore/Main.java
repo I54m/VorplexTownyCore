@@ -9,11 +9,23 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
+
+    public static Main instance;
+
+    public static Main getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(Main main) {
+        instance = main;
+    }
+
     @Override
     public void onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("LeaderHeadsRevamped") == null) {
-            getLogger().severe("Leaderheads has not been detected!");
-            getLogger().severe("This plugin requires Leaderheads to work!");
+        setInstance(this);
+        if (Bukkit.getPluginManager().getPlugin("AlonsoLeaderboards") == null) {
+            getLogger().severe("AlonsoLeaderboards has not been detected!");
+            getLogger().severe("This plugin requires AlonsoLeaderboards to work!");
             getLogger().severe("Plugin Disabled");
             this.setEnabled(false);
             return;

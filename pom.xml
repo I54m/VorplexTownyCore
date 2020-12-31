@@ -56,11 +56,11 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>me.robin.leaderheads</groupId>
-            <artifactId>leaderheads-api</artifactId>
-            <version>3.0.1</version>
+            <groupId>com.alonsoaliaga</groupId>
+            <artifactId>alonsoleaderboards</artifactId>
+            <version>1.3-BETA</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/libs/LeaderHeads.jar</systemPath>
+            <systemPath>${project.basedir}/libs/AlonsoLeaderboards_v1.3-BETA.jar</systemPath>
         </dependency>
     </dependencies>
 

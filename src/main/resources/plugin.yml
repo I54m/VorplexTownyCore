@@ -4,10 +4,11 @@ website: https://i54m.com
 version: 1.0
 main: com.i54m.vorplextownycore.Main
 description: A plugin to add a richest town and richest nation stat to LeaderHeads and plot vouchers.
+api-version: 1.16
 depend:
-  - LeaderHeads
   - Towny
 softdepend:
+  - LeaderHeads
   - MVdWPlaceholdeAPI
 
 commands:

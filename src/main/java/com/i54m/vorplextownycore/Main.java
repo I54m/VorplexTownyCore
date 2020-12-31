@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
-        if (Bukkit.getPluginManager().getPlugin("LeaderHeads") == null) {
+        if (Bukkit.getPluginManager().getPlugin("LeaderHeadsRevamped") == null) {
             getLogger().severe("Leaderheads has not been detected!");
             getLogger().severe("This plugin requires Leaderheads to work!");
             getLogger().severe("Plugin Disabled");

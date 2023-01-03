@@ -38,6 +38,7 @@ public class onInteract implements Listener {
                 voucher.setItemMeta(vm);
                 voucher.setAmount(item.getAmount());
                 if (item.equals(voucher)) {
+                    event.setCancelled(true);
                     Resident resident;
                     Town town;
                     try {
@@ -47,18 +48,21 @@ public class onInteract implements Listener {
                         player.sendMessage(ChatColor.RED + "Sorry you are not in a town so you can't redeem plot vouchers, do /t new to create one");
                         return;
                     }
-                    if (confirm.containsKey(player) && System.currentTimeMillis() <= confirm.get(player)) {
+                    if (confirm.containsKey(player) && System.currentTimeMillis() <= (confirm.get(player) - 29800)) {
+                        //prevent double triggering within 200ms
+                        return;
+                    } else if (confirm.containsKey(player) && System.currentTimeMillis() <= confirm.get(player)) {
+                        confirm.remove(player);
                         int amount = item.getAmount();
-                        item.setType(Material.AIR);
-                        item.setAmount(0);
+                        player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+                        player.updateInventory();
                         town.addBonusBlocks(amount);
                         TownyAPI.getInstance().getDataSource().saveTown(town);
-                        player.sendMessage(ChatColor.GREEN + "You redeemed " + item.getAmount() + " bonus town blocks for your town: " + town.getName());
+                        player.sendMessage(ChatColor.GREEN + "You redeemed " + amount + " bonus town blocks for your town: " + town.getName());
                         Resident mayor = town.getMayor();
                         Player mayorPlayer = Bukkit.getPlayer(mayor.getUUID());
                         if (mayorPlayer != null && !mayorPlayer.equals(player))
                             mayorPlayer.sendMessage(ChatColor.GREEN + player.getName() + " just redeemed " + item.getAmount() + " plot vouchers for your town!");
-                        confirm.remove(player);
                     } else if (!confirm.containsKey(player)) {
                         player.sendMessage(ChatColor.RED + "Please confirm you would like to redeem " + item.getAmount() + " plot vouchers for the town " + town.getName() + " this cannot be undone!");
                         confirm.put(player, (System.currentTimeMillis() + 30000));

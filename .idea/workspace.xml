@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="6544bfd7-587d-428c-b828-0a2020b470a2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/AlonsoLeaderboards_v1_3_BETA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__be_maximvdw_MVdWPlaceholderAPI_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__be_maximvdw_MVdWUpdater_1_6_0_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_TownyAdvanced_Towny_0_96_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_21_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__it_unimi_dsi_fastutil_8_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_16_R0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_paho_org_eclipse_paho_client_mqttv3_1_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_16_4_R0_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_bukkit_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_bukkit_legacy_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_bungee_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_common_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_fabric_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_sponge_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_sponge_legacy_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__us_myles_viaversion_velocity_3_1_1_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/VorplexTownyCore_1_0_SNAPSHOT.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/nation/NationResidents.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/nation/RichNation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/nation/king/NationResidentsKing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/nation/king/RichNationKing.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/RichTown.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/TownLandClaimed.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/TownResidents.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/mayor/RichTownMayor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/mayor/TownLandClaimedMayor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/mayor/TownResidentsMayor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VorplexTownyCore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/VorplexTownyCore.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichNation.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichNationKing.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichTown.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichTownMayor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/ScoreEntry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/objects/ScoreEntry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/onInteract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/onInteract.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1nNDxOFAgLHbfVExK3efUr2Jlo7" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/leaderboards/town/mayor" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\IdeaProjects\VorplexTownyCore\src\main\java\com\i54m\vorplextownycore\leaderboards\town\mayor" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.i54m.vorplextownycore.leaderboards.nation.king" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6544bfd7-587d-428c-b828-0a2020b470a2" name="Default Changelist" comment="" />
+      <created>1611221902916</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611221902916</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+</project>

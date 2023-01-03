@@ -1,4 +1,4 @@
-package com.i54m.vorplextownycore;
+package com.i54m.vorplextownycore.objects;
 
 import java.util.Map;
 

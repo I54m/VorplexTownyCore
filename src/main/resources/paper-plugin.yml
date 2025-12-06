@@ -1,0 +1,29 @@
+name: VorplexTownyCore
+author: I54m
+website: https://i54m.com
+version: ${project.version}
+main: net.vorplex.core.towny.VorplexTownyCore
+description: A plugin to add towny plot vouchers and town related leaderboard placeholders.
+api-version: '1.21.8'
+bootstrap: net.vorplex.core.towny.plugin.PaperBootstrap
+loader: net.vorplex.core.towny.plugin.PaperLoader
+
+dependencies:
+  server:
+    Towny:
+      load: BEFORE
+      required: true
+    PlaceholderAPI:
+      load: BEFORE
+      required: true
+
+permissions:
+  vorplexcore.towny.plotvouchers.give:
+    description: allows the player to use the give plot vouchers command.
+    default: op
+  vorplexcore.towny.leaderboards.signs.add:
+    description: allows the player to add leaderboard signs.
+    default: op
+  vorplexcore.towny.leaderboards.signs.remove:
+    description: allows the player to remove leaderboard signs.
+    default: op

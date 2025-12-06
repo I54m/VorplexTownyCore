@@ -67,8 +67,7 @@ public class LeaderboardSignsCommand {
                     e.printStackTrace();
                     return Command.SINGLE_SUCCESS;
                 }
-                LeaderBoardSign leaderBoardSign = LeaderBoardSign.getByLocation(currentBlock.getLocation());
-                if (leaderBoardSign != null) {
+                if (LeaderBoardSign.getByLocation(currentBlock.getLocation()) == null) {
                     VorplexTownyCore.leaderBoardSigns.add(lbs);
                     player.sendRichMessage("<green>Leaderboard sign added!");
                 } else player.sendRichMessage("<red>That sign is already a registered leaderboard sign! Do /vtl signs remove - to remove it!");

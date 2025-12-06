@@ -22,14 +22,15 @@ import org.bukkit.block.sign.SignSide;
 
 import java.util.List;
 import java.util.TreeMap;
+import java.util.UUID;
 
 
 public class LeaderBoardSign {
 
-    private String world;
-    private double x;
-    private double y;
-    private double z;
+    private final UUID world;
+    private final double x;
+    private final double y;
+    private final double z;
 
     @Setter
     @Getter
@@ -39,7 +40,7 @@ public class LeaderBoardSign {
     private int position;
 
     public LeaderBoardSign(Location loc, String leaderboard, int position) {
-        this.world = loc.getWorld().getName();
+        this.world = loc.getWorld().getUID();
         this.x = loc.getX();
         this.y = loc.getY();
         this.z = loc.getZ();
@@ -61,7 +62,9 @@ public class LeaderBoardSign {
             case "nationbank" -> NationBank.scores;
             default -> throw new IllegalStateException("The " + leaderboard + " Leaderboard could not be found!");
         };
-        Block block = Bukkit.getWorld(world).getBlockAt(getLocation());
+        World w  = Bukkit.getWorld(world);
+        if (w == null) throw new IllegalStateException("World does not exist!");
+        Block block = w.getBlockAt(getLocation());
         if (block.getState() instanceof Sign sign){
             String town = scoresCopy.get(position) == null ? "???" : scoresCopy.get(position).town();
             String score = scoresCopy.get(position) == null ? "???" : scoresCopy.get(position).score();
@@ -78,7 +81,9 @@ public class LeaderBoardSign {
     }
 
     public void clearSign() {
-        Block block = Bukkit.getWorld(world).getBlockAt(getLocation());
+        World w  = Bukkit.getWorld(world);
+        if (w == null) throw new IllegalStateException("World does not exist!");
+        Block block = w.getBlockAt(getLocation());
         if (block.getState() instanceof Sign sign){
             SignSide signSide = sign.getSide(Side.FRONT);
             signSide.lines().set(0, Component.text(position));

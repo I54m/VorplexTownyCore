@@ -90,6 +90,7 @@ public class LeaderBoardSign {
     }
 
     public static LeaderBoardSign getByLocation(Location location){
+        if (VorplexTownyCore.leaderBoardSigns.isEmpty()) return null;
         List<LeaderBoardSign> list = VorplexTownyCore.leaderBoardSigns.stream().filter(leaderBoardSign -> leaderBoardSign.getLocation().equals(location)).toList();
         return list.isEmpty() ? null : list.getFirst();
     }

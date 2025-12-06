@@ -5,41 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6544bfd7-587d-428c-b828-0a2020b470a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/AlonsoLeaderboards_v1_3_BETA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/VorplexTownyCore_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/VorplexTownyCore.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/nations/NationBank.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/nations/NationResidents.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/towns/TownBank.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/towns/TownLandClaimed.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/towns/TownResidents.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/util/LeaderBoardSign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/util/LeaderboardPlaceholders.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/leaderboards/util/LeaderboardSignsCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/plotvouchers/GiveCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/plugin/PaperBootstrap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/plugin/PaperLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/records/LeaderboardInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/paper-plugin.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/VorplexTownyCore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/VorplexTownyCore.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/AlonsoLeaderboards_v1.3-BETA.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/GiveCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichNation.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichNationKing.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichTown.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/RichTownMayor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/ScoreEntry.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/i54m/vorplextownycore/onInteract.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/net/vorplex/core/towny/plotvouchers/onInteract.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,5 +89,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Project re-write for vorplex 2025" />
+    <option name="LAST_COMMIT_MESSAGE" value="Project re-write for vorplex 2025" />
   </component>
 </project>

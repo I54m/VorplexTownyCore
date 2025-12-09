@@ -1,29 +1,15 @@
 package net.vorplex.core.towny;
 
 import com.palmergames.bukkit.towny.TownyAPI;
-import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
-import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.vorplex.core.towny.leaderboards.nations.NationBank;
-import net.vorplex.core.towny.leaderboards.nations.NationResidents;
-import net.vorplex.core.towny.leaderboards.towns.TownBank;
-import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
-import net.vorplex.core.towny.leaderboards.towns.TownResidents;
 import net.vorplex.core.towny.leaderboards.util.LeaderboardPlaceholders;
-import net.vorplex.core.towny.records.LeaderboardInfo;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
 
 public class PAPIPlaceholders extends PlaceholderExpansion {
 
@@ -61,6 +47,39 @@ public class PAPIPlaceholders extends PlaceholderExpansion {
         if (paramsList[0].equalsIgnoreCase("lb"))
             return LeaderboardPlaceholders.Parse(Arrays.copyOfRange(paramsList, 1, paramsList.length));
 
-        return null;
+        switch (paramsList[0].toLowerCase()) {
+            case "town": {
+                if (paramsList.length != 3
+                        || !paramsList[1].equalsIgnoreCase("name")
+                        || !paramsList[2].equalsIgnoreCase("formatted")) return null;
+                Resident resident;
+                Town town;
+                try {
+                    resident = TownyAPI.getInstance().getResident(player.getUniqueId());
+                    if (resident == null) throw new Exception("Resident is null!");
+                    town = resident.getTown();
+                    return town.getName();
+                } catch (Exception ignored) {
+                    return "No Town";
+                }
+            }
+            case "nation": {
+                if (paramsList.length != 3
+                        || !paramsList[1].equalsIgnoreCase("name")
+                        || !paramsList[2].equalsIgnoreCase("formatted")) return null;
+                Resident resident;
+                Nation nation;
+                try {
+                    resident = TownyAPI.getInstance().getResident(player.getUniqueId());
+                    if (resident == null) throw new Exception("Resident is null!");
+                    nation = resident.getNation();
+                    return nation.getName();
+                } catch (Exception ignored) {
+                    return "No Nation";
+                }
+            }
+            default:
+                return null;
+        }
     }
 }

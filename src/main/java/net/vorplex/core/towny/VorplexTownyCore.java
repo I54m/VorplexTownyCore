@@ -4,7 +4,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.vorplex.core.towny.leaderboards.util.LeaderBoardSign;
-import net.vorplex.core.towny.leaderboards.util.LeaderboardPlaceholders;
 import net.vorplex.core.towny.leaderboards.util.LeaderboardSignsCommand;
 import net.vorplex.core.towny.leaderboards.nations.NationBank;
 import net.vorplex.core.towny.leaderboards.nations.NationResidents;
@@ -86,13 +85,11 @@ public class VorplexTownyCore extends JavaPlugin {
         getComponentLogger().info(Component.text("Registering leaderboard placeholders for PAPI...").color(NamedTextColor.GREEN));
         new PAPIPlaceholders(this).register();
         getComponentLogger().info(Component.text("Registered leaderboard placeholders for PAPI!").color(NamedTextColor.GREEN));
-        this.getServer().getScheduler().runTaskTimer(this, () -> {
-            this.getServer().getScheduler().runTaskAsynchronously(this, () -> {
-                this.updateScores();
-                //wait until scores are updated before triggering sign update on main thread - this avoids race conditions
-                this.getServer().getScheduler().runTask(this, this::updateSigns);
-            });
-        }, 20, 200);
+        this.getServer().getScheduler().runTaskTimer(this, () -> this.getServer().getScheduler().runTaskAsynchronously(this, () -> {
+            this.updateScores();
+            //wait until scores are updated before triggering sign update on main thread - this avoids race conditions
+            this.getServer().getScheduler().runTask(this, this::updateSigns);
+        }), 20, 200);
         getComponentLogger().info(Component.text("Plugin loaded in: " + (System.nanoTime() - startTime) / 1000000 + "ms!").color(NamedTextColor.GREEN));
         getComponentLogger().info("───────────────────────────────────────────────────────────");
     }

@@ -1,16 +1,12 @@
 package net.vorplex.core.towny.leaderboards.util;
 
-import net.vorplex.core.towny.VorplexTownyCore;
 import net.vorplex.core.towny.leaderboards.nations.NationBank;
 import net.vorplex.core.towny.leaderboards.nations.NationResidents;
 import net.vorplex.core.towny.leaderboards.towns.TownBank;
 import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
 import net.vorplex.core.towny.leaderboards.towns.TownResidents;
 import net.vorplex.core.towny.records.LeaderboardInfo;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.bukkit.OfflinePlayer;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 

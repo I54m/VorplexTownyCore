@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -24,7 +25,7 @@ public class onInteract implements Listener {
 
     private final HashMap<Player, Long> confirm = new HashMap<>();
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void interactEvent(PlayerInteractEvent event) {
         if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
             Player player = event.getPlayer();
@@ -36,15 +37,16 @@ public class onInteract implements Listener {
                     Resident resident;
                     Town town;
                     try {
-                        resident = TownyAPI.getInstance().getResident(player.getName());
+                        resident = TownyAPI.getInstance().getResident(player.getUniqueId());
+                        if (resident == null) throw new Exception("Resident is null!");
                         town = resident.getTown();
-                    } catch (NotRegisteredException e) {
+                    } catch (Exception ignored) {
                         player.sendMessage(Component.text("Sorry you are not in a town so you can't redeem plot vouchers, do /t new to create one").color(NamedTextColor.RED));
                         return;
                     }
                     if (confirm.containsKey(player) && System.currentTimeMillis() <= (confirm.get(player) - 29800)) {
                         //prevent double triggering within 200ms
-                        return;
+                        player.sendMessage(Component.text("You confirmed that too fast, try again!").color(NamedTextColor.RED));
                     } else if (confirm.containsKey(player) && System.currentTimeMillis() <= confirm.get(player)) {
                         confirm.remove(player);
                         int amount = item.getAmount();

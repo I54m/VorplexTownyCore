@@ -84,7 +84,7 @@ public class VorplexTownyCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new onInteract(), this);
         getComponentLogger().info(Component.text("Registered event listeners!").color(NamedTextColor.GREEN));
         getComponentLogger().info(Component.text("Registering leaderboard placeholders for PAPI...").color(NamedTextColor.GREEN));
-        new LeaderboardPlaceholders(this).register();
+        new PAPIPlaceholders(this).register();
         getComponentLogger().info(Component.text("Registered leaderboard placeholders for PAPI!").color(NamedTextColor.GREEN));
         this.getServer().getScheduler().runTaskTimer(this, () -> {
             this.getServer().getScheduler().runTaskAsynchronously(this, () -> {

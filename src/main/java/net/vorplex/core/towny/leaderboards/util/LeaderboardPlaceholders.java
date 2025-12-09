@@ -14,43 +14,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.TreeMap;
 
-public class LeaderboardPlaceholders extends PlaceholderExpansion {
-
-    private final VorplexTownyCore plugin;
-
-    public LeaderboardPlaceholders(VorplexTownyCore plugin){
-        this.plugin = plugin;
-    }
-
-    @Override
-    public @NotNull String getIdentifier() {
-        return "vorplextowny";
-    }
-
-    @Override
-    public @NotNull String getAuthor() {
-        return String.join(", ", plugin.getPluginMeta().getAuthors());
-    }
-
-    @Override
-    public @NotNull String getVersion() {
-        return plugin.getPluginMeta().getVersion();
-    }
-
-    @Override
-    public boolean persist() {
-        return true;
-    }
-
-    //vorplextowny_townbank_1_town
-    //vorplextowny_townbank_1_score
-    //vorplextowny_townbank_1_leader
-    //vorplextowny_townbank_1_leader_skin
-    public String onRequest(OfflinePlayer player, @NotNull String params) {
-
-        String[] paramsList = params.split("_");
+public class LeaderboardPlaceholders {
+    //vorplextowny_lb_townbank_1_town
+    //vorplextowny_lb_townbank_1_score
+    //vorplextowny_lb_townbank_1_leader
+    //vorplextowny_lb_townbank_1_leader_skin
+    public static String Parse(String[] paramsList) {
         int position;
-
         if (paramsList.length < 3) return null;
         if (NumberUtils.isParsable(paramsList[1])) position = Integer.parseInt(paramsList[1]);
         else return null;

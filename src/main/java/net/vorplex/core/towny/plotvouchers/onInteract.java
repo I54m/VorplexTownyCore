@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -24,9 +25,10 @@ public class onInteract implements Listener {
 
     private final HashMap<Player, Long> confirm = new HashMap<>();
 
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void interactEvent(PlayerInteractEvent event) {
-        if (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+        if (event.getHand() != null && event.getHand().equals(EquipmentSlot.HAND)
+                && (event.getAction().equals(Action.RIGHT_CLICK_AIR) || event.getAction().equals(Action.RIGHT_CLICK_BLOCK))) {
             Player player = event.getPlayer();
             if (player.getInventory().getItemInMainHand().getType().equals(Material.PAPER)) {
                 ItemStack item = player.getInventory().getItemInMainHand();
@@ -43,10 +45,7 @@ public class onInteract implements Listener {
                         player.sendMessage(Component.text("Sorry you are not in a town so you can't redeem plot vouchers, do /t new to create one").color(NamedTextColor.RED));
                         return;
                     }
-                    if (confirm.containsKey(player) && System.currentTimeMillis() <= (confirm.get(player) - 29800)) {
-                        //prevent double triggering within 200ms
-                        player.sendMessage(Component.text("You confirmed that too fast, try again!").color(NamedTextColor.RED));
-                    } else if (confirm.containsKey(player) && System.currentTimeMillis() <= confirm.get(player)) {
+                    if (confirm.containsKey(player) && System.currentTimeMillis() <= confirm.get(player)) {
                         confirm.remove(player);
                         int amount = item.getAmount();
                         player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));

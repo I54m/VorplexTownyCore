@@ -6,7 +6,7 @@
 
     <groupId>net.vorplex.core.towny</groupId>
     <artifactId>VorplexTownyCore</artifactId>
-    <version>2.1-BETA</version>
+    <version>2.2-BETA</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

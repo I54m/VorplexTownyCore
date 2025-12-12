@@ -276,7 +276,7 @@ public class VorplexTownyCore extends JavaPlugin {
             for (int i = 0; i < nations.size(); i++) {
                 Nation n = nations.get(i);
                 NationBank.scores.put(i + 1, new LeaderboardInfo(n.getName(),
-                        n.getAccount().getHoldingFormattedBalance(),
+                        String.valueOf(n.getNumResidents()),
                         n.getKing().getName()
                 ));
             }

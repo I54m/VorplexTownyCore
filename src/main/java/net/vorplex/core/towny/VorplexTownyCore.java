@@ -80,7 +80,7 @@ public class VorplexTownyCore extends JavaPlugin {
         getComponentLogger().info(Component.text("Registered Commands!").color(NamedTextColor.GREEN));
 
         getComponentLogger().info(Component.text("Registering event listeners...").color(NamedTextColor.GREEN));
-        Bukkit.getPluginManager().registerEvents(new onInteract(), this);
+        getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
         getComponentLogger().info(Component.text("Registered event listeners!").color(NamedTextColor.GREEN));
         getComponentLogger().info(Component.text("Registering leaderboard placeholders for PAPI...").color(NamedTextColor.GREEN));
         new PAPIPlaceholders(this).register();

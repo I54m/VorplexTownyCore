@@ -21,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class onInteract implements Listener {
+public class PlayerInteractListener implements Listener {
 
     private final HashMap<Player, Long> confirm = new HashMap<>();
 

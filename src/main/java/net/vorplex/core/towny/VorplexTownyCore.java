@@ -215,14 +215,14 @@ public class VorplexTownyCore extends JavaPlugin {
         //most residents towns
         try {
             List<Town> towns = TownyAPI.getInstance().getTowns().stream()
-                    .sorted(Comparator.comparingInt((Town t) -> t.getResidents().size()).reversed())
+                    .sorted(Comparator.comparingInt(Town::getNumResidents).reversed())
                     .limit(10)
                     .toList();
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
                 TownResidents.scores.put(i + 1, new LeaderboardInfo(t.getName(),
-                        String.valueOf(t.getResidents().size()),
+                        String.valueOf(t.getNumResidents()),
                         t.getMayor().getName()
                 ));
             }
@@ -233,14 +233,14 @@ public class VorplexTownyCore extends JavaPlugin {
         //most claims towns
         try {
             List<Town> towns = TownyAPI.getInstance().getTowns().stream()
-                    .sorted(Comparator.comparingInt((Town t) -> t.getTownBlocks().size()).reversed())
+                    .sorted(Comparator.comparingInt(Town::getNumTownBlocks).reversed())
                     .limit(10)
                     .toList();
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
                 TownLandClaimed.scores.put(i + 1, new LeaderboardInfo(t.getName(),
-                        String.valueOf(t.getTownBlocks().size()),
+                        String.valueOf(t.getNumTownBlocks()),
                         t.getMayor().getName()
                 ));
             }
@@ -269,7 +269,7 @@ public class VorplexTownyCore extends JavaPlugin {
         //most residents nations
         try {
             List<Nation> nations = TownyAPI.getInstance().getNations().stream()
-                    .sorted(Comparator.comparingInt((Nation n) -> n.getResidents().size()).reversed())
+                    .sorted(Comparator.comparingInt(Nation::getNumResidents).reversed())
                     .limit(10)
                     .toList();
 

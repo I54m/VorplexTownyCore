@@ -3,16 +3,6 @@ package net.vorplex.core.towny;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.vorplex.core.towny.leaderboards.util.LeaderBoardSign;
-import net.vorplex.core.towny.leaderboards.util.LeaderboardSignsCommand;
-import net.vorplex.core.towny.leaderboards.nations.NationBank;
-import net.vorplex.core.towny.leaderboards.nations.NationResidents;
-import net.vorplex.core.towny.leaderboards.towns.TownBank;
-import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
-import net.vorplex.core.towny.leaderboards.towns.TownResidents;
-import net.vorplex.core.towny.plotvouchers.GiveCommand;
-import net.vorplex.core.towny.plotvouchers.onInteract;
-import net.vorplex.core.towny.records.LeaderboardInfo;
 import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
@@ -21,6 +11,20 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.vorplex.core.towny.chat.AsyncChatListener;
+import net.vorplex.core.towny.chat.ChatUtils;
+import net.vorplex.core.towny.chat.NationChatCommand;
+import net.vorplex.core.towny.chat.TownChatCommand;
+import net.vorplex.core.towny.leaderboards.nations.NationBank;
+import net.vorplex.core.towny.leaderboards.nations.NationResidents;
+import net.vorplex.core.towny.leaderboards.towns.TownBank;
+import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
+import net.vorplex.core.towny.leaderboards.towns.TownResidents;
+import net.vorplex.core.towny.leaderboards.util.LeaderBoardSign;
+import net.vorplex.core.towny.leaderboards.util.LeaderboardSignsCommand;
+import net.vorplex.core.towny.plotvouchers.GiveCommand;
+import net.vorplex.core.towny.plotvouchers.PlayerInteractListener;
+import net.vorplex.core.towny.records.LeaderboardInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -76,20 +80,29 @@ public class VorplexTownyCore extends JavaPlugin {
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(GiveCommand.COMMAND_NODE);
             commands.registrar().register(LeaderboardSignsCommand.COMMAND_NODE);
+            commands.registrar().register(TownChatCommand.COMMAND_NODE, List.of("tc", "chattown"));
+            commands.registrar().register(NationChatCommand.COMMAND_NODE, List.of("nc", "chatnation"));
         });
         getComponentLogger().info(Component.text("Registered Commands!").color(NamedTextColor.GREEN));
 
         getComponentLogger().info(Component.text("Registering event listeners...").color(NamedTextColor.GREEN));
         getServer().getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        getServer().getPluginManager().registerEvents(new AsyncChatListener(), this);
         getComponentLogger().info(Component.text("Registered event listeners!").color(NamedTextColor.GREEN));
         getComponentLogger().info(Component.text("Registering leaderboard placeholders for PAPI...").color(NamedTextColor.GREEN));
         new PAPIPlaceholders(this).register();
         getComponentLogger().info(Component.text("Registered leaderboard placeholders for PAPI!").color(NamedTextColor.GREEN));
+        //task to update scores and leaderboard signs
         this.getServer().getScheduler().runTaskTimer(this, () -> this.getServer().getScheduler().runTaskAsynchronously(this, () -> {
             this.updateScores();
             //wait until scores are updated before triggering sign update on main thread - this avoids race conditions
             this.getServer().getScheduler().runTask(this, this::updateSigns);
         }), 20, 200);
+        //Task to remove offline players from the townchat and nationchat toggle lists
+        this.getServer().getScheduler().runTaskTimerAsynchronously(this, () -> {
+            ChatUtils.townChat.removeIf(player -> !player.isOnline());
+            ChatUtils.nationChat.removeIf(player -> !player.isOnline());
+        }, 20, 200);
         getComponentLogger().info(Component.text("Plugin loaded in: " + (System.nanoTime() - startTime) / 1000000 + "ms!").color(NamedTextColor.GREEN));
         getComponentLogger().info("───────────────────────────────────────────────────────────");
     }

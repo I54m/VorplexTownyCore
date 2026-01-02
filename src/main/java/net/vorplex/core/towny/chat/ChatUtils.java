@@ -56,13 +56,14 @@ public class ChatUtils {
             player.sendMessage(Component.text("Sorry you are not in a town so you can't use town chat!").color(NamedTextColor.RED));
             return;
         }
+        final Resident senderResident = TownyAPI.getInstance().getResident(player);
         Town town = TownyAPI.getInstance().getTown(player);
-        List<Resident> onlineResidents = town.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.getPlayer().isOnline()).toList();
+        List<Resident> onlineResidents = town.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendRichMessage(TOWN_CHAT_FORMAT,
                         Placeholder.component("town", Component.text(town.getName())),
-                        Placeholder.component("title", Component.text(!resident.getTitle().trim().isEmpty() ? resident.getTitle().trim() + " " : "")),
-                        Placeholder.component("rank", Component.text(resident.getHighestPriorityTownRank() != null ? resident.getHighestPriorityTownRank() + " " : "")),
+                        Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
+                        Placeholder.component("rank", Component.text(senderResident.getHighestPriorityTownRank() != null ? senderResident.getHighestPriorityTownRank() + " " : "")),
                         Placeholder.component("sender", Component.text(player.getName())),
                         Placeholder.component("message", Component.text(message))
                 )
@@ -75,14 +76,15 @@ public class ChatUtils {
             player.sendMessage(Component.text("Sorry you are not in a nation so you can't use nation chat!").color(NamedTextColor.RED));
             return;
         }
+        final Resident senderResident = TownyAPI.getInstance().getResident(player);
         Nation nation = TownyAPI.getInstance().getNation(player);
-        List<Resident> onlineResidents = nation.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.getPlayer().isOnline()).toList();
+        List<Resident> onlineResidents = nation.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendRichMessage(NATION_CHAT_FORMAT,
                         Placeholder.component("nation", Component.text(nation.getName())),
                         Placeholder.component("town", Component.text(TownyAPI.getInstance().getTownName(player))),
-                        Placeholder.component("title", Component.text(!resident.getTitle().trim().isEmpty() ? resident.getTitle().trim() + " " : "")),
-                        Placeholder.component("rank", Component.text(resident.getHighestPriorityNationRank() != null ? resident.getHighestPriorityNationRank() + " " : "")),
+                        Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
+                        Placeholder.component("rank", Component.text(senderResident.getHighestPriorityNationRank() != null ? senderResident.getHighestPriorityNationRank() + " " : "")),
                         Placeholder.component("sender", Component.text(player.getName())),
                         Placeholder.component("message", Component.text(message))
                 )

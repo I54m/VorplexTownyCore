@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 
 public class AsyncChatListener implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onChat(AsyncChatEvent event) {
         Player player = event.getPlayer();
         if (ChatUtils.isTownChatOn(player)){

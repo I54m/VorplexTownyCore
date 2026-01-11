@@ -7,6 +7,9 @@ import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
@@ -24,7 +27,8 @@ import net.vorplex.core.towny.leaderboards.util.LeaderBoardSign;
 import net.vorplex.core.towny.leaderboards.util.LeaderboardSignsCommand;
 import net.vorplex.core.towny.plotvouchers.GiveCommand;
 import net.vorplex.core.towny.plotvouchers.PlayerInteractListener;
-import net.vorplex.core.towny.records.LeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.NationLeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.TownLeaderboardInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -43,7 +47,8 @@ import java.util.List;
 
 public class VorplexTownyCore extends JavaPlugin {
 
-
+    @Getter @Setter(AccessLevel.PRIVATE)
+    private static VorplexTownyCore instance;
     public static ArrayList<LeaderBoardSign> leaderBoardSigns = new ArrayList<>();
     private final File leaderboardSignsFile = new File(getDataFolder(), "leaderboard_signs.json");
 
@@ -65,6 +70,7 @@ public class VorplexTownyCore extends JavaPlugin {
         getComponentLogger().info(Component.text("v" + getPluginMeta().getVersion() + " Running on " + getServer().getVersion()).color(NamedTextColor.RED));
         getComponentLogger().info("───────────────────────────────────────────────────────────");
 
+        setInstance(this);
         if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") == null) {
             getComponentLogger().error("PlaceholderAPI has not been detected!");
             throw new IllegalStateException("PlaceholderAPI is required for this plugin to run!");
@@ -182,7 +188,7 @@ public class VorplexTownyCore extends JavaPlugin {
         return voucher;
     }
 
-    private void updateSigns(){
+    public void updateSigns(){
         for (int i = 0; i< leaderBoardSigns.size(); i++){
             LeaderBoardSign leaderBoardSign = leaderBoardSigns.get(i);
             try {
@@ -203,7 +209,7 @@ public class VorplexTownyCore extends JavaPlugin {
         TownLandClaimed.scores.clear();
     }
 
-    private void updateScores() {
+    public void updateScores() {
         clearScores();
         // richest towns
         try {
@@ -214,8 +220,7 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownBank.scores.put(i + 1, new LeaderboardInfo(
-                        t.getName(),
+                TownBank.scores.put(i + 1, new TownLeaderboardInfo(t,
                         t.getAccount().getHoldingFormattedBalance(),
                         t.getMayor().getName()
                 ));
@@ -234,7 +239,7 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownResidents.scores.put(i + 1, new LeaderboardInfo(t.getName(),
+                TownResidents.scores.put(i + 1, new TownLeaderboardInfo(t,
                         String.valueOf(t.getNumResidents()),
                         t.getMayor().getName()
                 ));
@@ -252,7 +257,7 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownLandClaimed.scores.put(i + 1, new LeaderboardInfo(t.getName(),
+                TownLandClaimed.scores.put(i + 1, new TownLeaderboardInfo(t,
                         String.valueOf(t.getNumTownBlocks()),
                         t.getMayor().getName()
                 ));
@@ -270,7 +275,7 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < nations.size(); i++) {
                 Nation n = nations.get(i);
-                NationBank.scores.put(i + 1, new LeaderboardInfo(n.getName(),
+                NationBank.scores.put(i + 1, new NationLeaderboardInfo(n,
                         n.getAccount().getHoldingFormattedBalance(),
                         n.getKing().getName()
                 ));
@@ -288,7 +293,7 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < nations.size(); i++) {
                 Nation n = nations.get(i);
-                NationBank.scores.put(i + 1, new LeaderboardInfo(n.getName(),
+                NationResidents.scores.put(i + 1, new NationLeaderboardInfo(n,
                         String.valueOf(n.getNumResidents()),
                         n.getKing().getName()
                 ));

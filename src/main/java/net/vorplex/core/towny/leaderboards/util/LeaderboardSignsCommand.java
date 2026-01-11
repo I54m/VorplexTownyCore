@@ -35,6 +35,9 @@ public class LeaderboardSignsCommand {
                             .requires(ctx -> ctx.getSender().hasPermission("vorplexcore.towny.leaderboards.signs.remove") || ctx.getSender().isOp())
                             .executes(LeaderboardSignsCommand::executeRemoveCommand)
                 )
+            ).then(Commands.literal("forceupdate")
+                    .requires(ctx -> ctx.getSender().hasPermission("vorplexcore.towny.leaderboards.forceupdate") || ctx.getSender().isOp())
+                    .executes(LeaderboardSignsCommand::executeUpdateCommand)
             ).build();
 
     private static CompletableFuture<Suggestions> getLeaderboardSuggestions(final CommandContext<CommandSourceStack> ctx, final SuggestionsBuilder builder) {
@@ -94,6 +97,16 @@ public class LeaderboardSignsCommand {
                 } else player.sendRichMessage("<red>That sign is not a registered leaderboard sign!");
             } else
                 player.sendRichMessage("<red>You must be looking at a sign to do this!");
+        }
+        return Command.SINGLE_SUCCESS;
+    }
+
+
+    private static int executeUpdateCommand(final CommandContext<CommandSourceStack> ctx) {
+        if (ctx.getSource().getExecutor() instanceof Player player) {
+            player.sendRichMessage("<green>Forcing leaderboard update!");
+            VorplexTownyCore.getInstance().updateScores();
+            VorplexTownyCore.getInstance().updateSigns();
         }
         return Command.SINGLE_SUCCESS;
     }

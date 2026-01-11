@@ -1,6 +1,7 @@
 package net.vorplex.core.towny.leaderboards.towns;
 
-import net.vorplex.core.towny.records.LeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.LeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.TownLeaderboardInfo;
 
 import java.util.TreeMap;
 

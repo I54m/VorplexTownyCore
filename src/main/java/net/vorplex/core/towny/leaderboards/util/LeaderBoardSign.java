@@ -8,10 +8,12 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.vorplex.core.towny.VorplexTownyCore;
 import net.vorplex.core.towny.leaderboards.nations.NationBank;
 import net.vorplex.core.towny.leaderboards.nations.NationResidents;
+import net.vorplex.core.towny.leaderboards.objects.LeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.NationLeaderboardInfo;
 import net.vorplex.core.towny.leaderboards.towns.TownBank;
 import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
 import net.vorplex.core.towny.leaderboards.towns.TownResidents;
-import net.vorplex.core.towny.records.LeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.TownLeaderboardInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -66,13 +68,18 @@ public class LeaderBoardSign {
         if (w == null) throw new IllegalStateException("World does not exist!");
         Block block = w.getBlockAt(getLocation());
         if (block.getState() instanceof Sign sign){
-            String town = scoresCopy.get(position) == null ? "???" : scoresCopy.get(position).town();
-            String score = scoresCopy.get(position) == null ? "???" : scoresCopy.get(position).score();
+            LeaderboardInfo leaderboardInfo = scoresCopy.get(position);
+            String townOrNation = "???";
+            if (leaderboardInfo instanceof TownLeaderboardInfo)
+                townOrNation = leaderboardInfo.getTown();
+            else if (leaderboardInfo instanceof NationLeaderboardInfo)
+                townOrNation = leaderboardInfo.getNation();
+            String score = leaderboardInfo == null ? "???" : leaderboardInfo.getScore();
             SignSide signSide = sign.getSide(Side.FRONT);
             signSide.lines().set(0, Component.text("       ").color(NamedTextColor.GRAY).decorate(TextDecoration.STRIKETHROUGH)
                     .append(Component.text(" #" + position + " ").color(NamedTextColor.BLACK).decoration(TextDecoration.STRIKETHROUGH, false))
                     .append(Component.text("       ").color(NamedTextColor.GRAY).decorate(TextDecoration.STRIKETHROUGH)));
-            signSide.lines().set(1, Component.text(town).color(NamedTextColor.GOLD));
+            signSide.lines().set(1, Component.text(townOrNation).color(NamedTextColor.GOLD));
             signSide.lines().set(2, Component.text(score).color(NamedTextColor.YELLOW));
             signSide.lines().set(3, Component.text("                   ").color(NamedTextColor.GRAY).decorate(TextDecoration.STRIKETHROUGH));
 

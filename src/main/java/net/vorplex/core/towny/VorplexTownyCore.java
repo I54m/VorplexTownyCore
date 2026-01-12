@@ -214,6 +214,7 @@ public class VorplexTownyCore extends JavaPlugin {
         // richest towns
         try {
             List<Town> towns = TownyAPI.getInstance().getTowns().stream()
+                    .filter((Town t) -> !t.getMayor().isNPC())
                     .sorted(Comparator.comparingDouble((Town t) -> t.getAccount().getHoldingBalance()).reversed())
                     .limit(10)
                     .toList();
@@ -233,6 +234,7 @@ public class VorplexTownyCore extends JavaPlugin {
         //most residents towns
         try {
             List<Town> towns = TownyAPI.getInstance().getTowns().stream()
+                    .filter((Town t) -> !t.getMayor().isNPC())
                     .sorted(Comparator.comparingInt(Town::getNumResidents).reversed())
                     .limit(10)
                     .toList();
@@ -251,6 +253,7 @@ public class VorplexTownyCore extends JavaPlugin {
         //most claims towns
         try {
             List<Town> towns = TownyAPI.getInstance().getTowns().stream()
+                    .filter((Town t) -> !t.getMayor().isNPC())
                     .sorted(Comparator.comparingInt(Town::getNumTownBlocks).reversed())
                     .limit(10)
                     .toList();
@@ -269,6 +272,7 @@ public class VorplexTownyCore extends JavaPlugin {
         //richest nations
         try {
             List<Nation> nations = TownyAPI.getInstance().getNations().stream()
+                    .filter((Nation n) -> !n.getKing().isNPC())
                     .sorted(Comparator.comparingDouble((Nation n) -> n.getAccount().getHoldingBalance()).reversed())
                     .limit(10)
                     .toList();
@@ -287,6 +291,7 @@ public class VorplexTownyCore extends JavaPlugin {
         //most residents nations
         try {
             List<Nation> nations = TownyAPI.getInstance().getNations().stream()
+                    .filter((Nation n) -> !n.getKing().isNPC())
                     .sorted(Comparator.comparingInt(Nation::getNumResidents).reversed())
                     .limit(10)
                     .toList();

@@ -32,8 +32,7 @@ public class PlayerInteractListener implements Listener {
             Player player = event.getPlayer();
             if (player.getInventory().getItemInMainHand().getType().equals(Material.PAPER)) {
                 ItemStack item = player.getInventory().getItemInMainHand();
-                ItemStack voucher = VorplexTownyCore.getVoucherItem(item.getAmount());
-                if (item.equals(voucher)) {
+                if (isVoucherItem(item)) {
                     event.setCancelled(true);
                     Resident resident;
                     Town town;
@@ -70,5 +69,11 @@ public class PlayerInteractListener implements Listener {
                 }
             }
         }
+    }
+
+
+    private boolean isVoucherItem(ItemStack item) {
+        ItemStack voucher = VorplexTownyCore.getVoucherItem(item.getAmount());
+        return item.equals(voucher);
     }
 }

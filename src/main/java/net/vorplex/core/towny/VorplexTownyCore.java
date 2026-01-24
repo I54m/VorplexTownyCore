@@ -162,6 +162,7 @@ public class VorplexTownyCore extends JavaPlugin {
         }
     }
 
+    //TODO voucher item gets broken by auction house - https://lfs.i54m.com/lTfCWGDj
     public static @NotNull ItemStack getVoucherItem(int amount) {
         final Style TITLE_STYLE = Style.style(
                 NamedTextColor.LIGHT_PURPLE,

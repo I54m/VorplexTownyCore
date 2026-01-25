@@ -71,8 +71,7 @@ public class PlayerInteractListener implements Listener {
         }
     }
 
-
-    private boolean isVoucherItem(ItemStack item) {
+    private boolean isVoucherItem(@NotNull ItemStack item) {
         ItemStack voucher = VorplexTownyCore.getVoucherItem(item.getAmount());
         return item.equals(voucher);
     }

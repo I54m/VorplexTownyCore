@@ -10,6 +10,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.vorplex.core.towny.VorplexTownyCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,6 +19,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -73,6 +76,11 @@ public class PlayerInteractListener implements Listener {
 
     private boolean isVoucherItem(@NotNull ItemStack item) {
         ItemStack voucher = VorplexTownyCore.getVoucherItem(item.getAmount());
+        if (item.getType() != Material.PAPER) return false;
+
+        NamespacedKey voucherKey = new NamespacedKey(VorplexTownyCore.getInstance(), "plot_voucher");
+        if (item.getPersistentDataContainer().has(voucherKey, PersistentDataType.BOOLEAN)) return true;
+
         return item.equals(voucher);
     }
 }

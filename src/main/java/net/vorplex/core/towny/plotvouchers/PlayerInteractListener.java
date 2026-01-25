@@ -7,6 +7,9 @@ import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.Style;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.vorplex.core.towny.VorplexTownyCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,10 +22,13 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class PlayerInteractListener implements Listener {
 
@@ -73,12 +79,45 @@ public class PlayerInteractListener implements Listener {
     }
 
     private boolean isVoucherItem(@NotNull ItemStack item) {
-        ItemStack voucher = VorplexTownyCore.getVoucherItem(item.getAmount());
         if (item.getType() != Material.PAPER) return false;
 
         NamespacedKey voucherKey = new NamespacedKey(VorplexTownyCore.getInstance(), "plot_voucher");
         if (item.getPersistentDataContainer().has(voucherKey, PersistentDataType.BOOLEAN)) return true;
 
-        return item.equals(voucher);
+        return isLegacyVoucherItem(item);
+    }
+
+    private boolean isLegacyVoucherItem(@NotNull ItemStack item) {
+        final Style TITLE_STYLE = Style.style(
+                NamedTextColor.LIGHT_PURPLE,
+                TextDecoration.BOLD
+        ).decoration(TextDecoration.ITALIC, false);
+        final Style TITLE_SECONDARY_STYLE = Style.style(
+                        NamedTextColor.GRAY
+                ).decoration(TextDecoration.ITALIC, false)
+                .decoration(TextDecoration.BOLD, false);
+        final Style LORE_STYLE = Style.style(
+                NamedTextColor.WHITE
+        ).decoration(TextDecoration.ITALIC, false);
+
+        ItemStack voucher = ItemStack.of(Material.PAPER);
+        ItemMeta vm = voucher.getItemMeta();
+        vm.displayName(Component.text("Bonus Town Plot Voucher", TITLE_STYLE)
+                .append(Component.text(" (Right Click)", TITLE_SECONDARY_STYLE)));
+        ArrayList<Component> voucherLore = new ArrayList<>();
+        voucherLore.add(Component.text("Redeem this to get extra town", LORE_STYLE));
+        voucherLore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
+        vm.lore(voucherLore);
+        voucher.setItemMeta(vm);
+
+        String expectedName = PlainTextComponentSerializer.plainText().serialize(voucher.displayName());
+        ArrayList<String> expectedLore = new ArrayList<>();
+        Objects.requireNonNull(voucher.lore()).forEach(lore -> expectedLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
+
+        String itemName = PlainTextComponentSerializer.plainText().serialize(item.displayName());
+        ArrayList<String> itemLore = new ArrayList<>();
+        item.lore().forEach(lore -> itemLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
+
+        return itemName.equals(expectedName) && itemLore.equals(expectedLore);
     }
 }

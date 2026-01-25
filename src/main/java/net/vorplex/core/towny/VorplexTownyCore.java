@@ -184,6 +184,8 @@ public class VorplexTownyCore extends JavaPlugin {
         lore.add(Component.text("Redeem this to get extra town", LORE_STYLE));
         lore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
         vm.lore(lore);
+        NamespacedKey voucherKey = new NamespacedKey(getInstance(), "plot_voucher");
+        voucher.editPersistentDataContainer(pdc -> pdc.set(voucherKey, PersistentDataType.BOOLEAN, true));
         voucher.setItemMeta(vm);
         return voucher;
     }

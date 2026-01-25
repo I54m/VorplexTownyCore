@@ -185,7 +185,6 @@ public class VorplexTownyCore extends JavaPlugin {
         lore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
         vm.lore(lore);
         voucher.setItemMeta(vm);
-        voucher.setAmount(amount);
         return voucher;
     }
 

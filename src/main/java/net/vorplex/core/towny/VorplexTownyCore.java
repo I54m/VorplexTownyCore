@@ -187,6 +187,7 @@ public class VorplexTownyCore extends JavaPlugin {
         NamespacedKey voucherKey = new NamespacedKey(getInstance(), "plot_voucher");
         voucher.editPersistentDataContainer(pdc -> pdc.set(voucherKey, PersistentDataType.BOOLEAN, true));
         voucher.setItemMeta(vm);
+        voucher.editPersistentDataContainer(pdc -> pdc.set(voucherKey, PersistentDataType.BOOLEAN, true));
         return voucher;
     }
 

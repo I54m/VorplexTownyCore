@@ -176,7 +176,7 @@ public class VorplexTownyCore extends JavaPlugin {
                 NamedTextColor.WHITE
         ).decoration(TextDecoration.ITALIC, false);
 
-        ItemStack voucher = new ItemStack(Material.PAPER);
+        ItemStack voucher = ItemStack.of(Material.PAPER, amount);
         ItemMeta vm = voucher.getItemMeta();
         vm.displayName(Component.text("Bonus Town Plot Voucher", TITLE_STYLE)
                 .append(Component.text(" (Right Click)", TITLE_SECONDARY_STYLE)));

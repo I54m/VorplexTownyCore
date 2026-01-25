@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,6 +22,8 @@ import net.vorplex.core.towny.chat.NationChatCommand;
 import net.vorplex.core.towny.chat.TownChatCommand;
 import net.vorplex.core.towny.leaderboards.nations.NationBank;
 import net.vorplex.core.towny.leaderboards.nations.NationResidents;
+import net.vorplex.core.towny.leaderboards.objects.NationLeaderboardInfo;
+import net.vorplex.core.towny.leaderboards.objects.TownLeaderboardInfo;
 import net.vorplex.core.towny.leaderboards.towns.TownBank;
 import net.vorplex.core.towny.leaderboards.towns.TownLandClaimed;
 import net.vorplex.core.towny.leaderboards.towns.TownResidents;
@@ -27,12 +31,12 @@ import net.vorplex.core.towny.leaderboards.util.LeaderBoardSign;
 import net.vorplex.core.towny.leaderboards.util.LeaderboardSignsCommand;
 import net.vorplex.core.towny.plotvouchers.GiveCommand;
 import net.vorplex.core.towny.plotvouchers.PlayerInteractListener;
-import net.vorplex.core.towny.leaderboards.objects.NationLeaderboardInfo;
-import net.vorplex.core.towny.leaderboards.objects.TownLeaderboardInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -162,7 +166,6 @@ public class VorplexTownyCore extends JavaPlugin {
         }
     }
 
-    //TODO voucher item gets broken by auction house - https://lfs.i54m.com/lTfCWGDj
     public static @NotNull ItemStack getVoucherItem(int amount) {
         final Style TITLE_STYLE = Style.style(
                 NamedTextColor.LIGHT_PURPLE,
@@ -177,6 +180,7 @@ public class VorplexTownyCore extends JavaPlugin {
         ).decoration(TextDecoration.ITALIC, false);
 
         ItemStack voucher = ItemStack.of(Material.PAPER, amount);
+        voucher.setData(DataComponentTypes.CUSTOM_MODEL_DATA, CustomModelData.customModelData().addFloat(200381.0f).build());
         ItemMeta vm = voucher.getItemMeta();
         vm.displayName(Component.text("Bonus Town Plot Voucher", TITLE_STYLE)
                 .append(Component.text(" (Right Click)", TITLE_SECONDARY_STYLE)));
@@ -185,7 +189,7 @@ public class VorplexTownyCore extends JavaPlugin {
         lore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
         vm.lore(lore);
         NamespacedKey voucherKey = new NamespacedKey(getInstance(), "plot_voucher");
-        voucher.editPersistentDataContainer(pdc -> pdc.set(voucherKey, PersistentDataType.BOOLEAN, true));
+        vm.setItemModel(new NamespacedKey("nexo", "pack1_scroll4"));
         voucher.setItemMeta(vm);
         voucher.editPersistentDataContainer(pdc -> pdc.set(voucherKey, PersistentDataType.BOOLEAN, true));
         return voucher;

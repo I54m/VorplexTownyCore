@@ -88,36 +88,40 @@ public class PlayerInteractListener implements Listener {
     }
 
     private boolean isLegacyVoucherItem(@NotNull ItemStack item) {
-        final Style TITLE_STYLE = Style.style(
-                NamedTextColor.LIGHT_PURPLE,
-                TextDecoration.BOLD
-        ).decoration(TextDecoration.ITALIC, false);
-        final Style TITLE_SECONDARY_STYLE = Style.style(
-                        NamedTextColor.GRAY
-                ).decoration(TextDecoration.ITALIC, false)
-                .decoration(TextDecoration.BOLD, false);
-        final Style LORE_STYLE = Style.style(
-                NamedTextColor.WHITE
-        ).decoration(TextDecoration.ITALIC, false);
+        try {
+            final Style TITLE_STYLE = Style.style(
+                    NamedTextColor.LIGHT_PURPLE,
+                    TextDecoration.BOLD
+            ).decoration(TextDecoration.ITALIC, false);
+            final Style TITLE_SECONDARY_STYLE = Style.style(
+                            NamedTextColor.GRAY
+                    ).decoration(TextDecoration.ITALIC, false)
+                    .decoration(TextDecoration.BOLD, false);
+            final Style LORE_STYLE = Style.style(
+                    NamedTextColor.WHITE
+            ).decoration(TextDecoration.ITALIC, false);
 
-        ItemStack voucher = ItemStack.of(Material.PAPER);
-        ItemMeta vm = voucher.getItemMeta();
-        vm.displayName(Component.text("Bonus Town Plot Voucher", TITLE_STYLE)
-                .append(Component.text(" (Right Click)", TITLE_SECONDARY_STYLE)));
-        ArrayList<Component> voucherLore = new ArrayList<>();
-        voucherLore.add(Component.text("Redeem this to get extra town", LORE_STYLE));
-        voucherLore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
-        vm.lore(voucherLore);
-        voucher.setItemMeta(vm);
+            ItemStack voucher = ItemStack.of(Material.PAPER);
+            ItemMeta vm = voucher.getItemMeta();
+            vm.displayName(Component.text("Bonus Town Plot Voucher", TITLE_STYLE)
+                    .append(Component.text(" (Right Click)", TITLE_SECONDARY_STYLE)));
+            ArrayList<Component> voucherLore = new ArrayList<>();
+            voucherLore.add(Component.text("Redeem this to get extra town", LORE_STYLE));
+            voucherLore.add(Component.text("plots that your mayor can claim!", LORE_STYLE));
+            vm.lore(voucherLore);
+            voucher.setItemMeta(vm);
 
-        String expectedName = PlainTextComponentSerializer.plainText().serialize(voucher.displayName());
-        ArrayList<String> expectedLore = new ArrayList<>();
-        Objects.requireNonNull(voucher.lore()).forEach(lore -> expectedLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
+            String expectedName = PlainTextComponentSerializer.plainText().serialize(voucher.displayName());
+            ArrayList<String> expectedLore = new ArrayList<>();
+            Objects.requireNonNull(voucher.lore()).forEach(lore -> expectedLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
 
-        String itemName = PlainTextComponentSerializer.plainText().serialize(item.displayName());
-        ArrayList<String> itemLore = new ArrayList<>();
-        item.lore().forEach(lore -> itemLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
+            String itemName = PlainTextComponentSerializer.plainText().serialize(item.displayName());
+            ArrayList<String> itemLore = new ArrayList<>();
+            Objects.requireNonNull(item.lore()).forEach(lore -> itemLore.add(PlainTextComponentSerializer.plainText().serialize(lore)));
 
-        return itemName.equals(expectedName) && itemLore.equals(expectedLore);
+            return itemName.equals(expectedName) && itemLore.equals(expectedLore);
+        } catch (Exception e){
+            return false;
+        }
     }
 }

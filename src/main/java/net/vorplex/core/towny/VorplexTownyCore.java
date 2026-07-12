@@ -228,14 +228,18 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownBank.scores.put(i + 1, new TownLeaderboardInfo(t,
-                        t.getAccount().getHoldingFormattedBalance(),
-                        t.getMayor().getName()
-                ));
+                try {
+                    TownBank.scores.put(i + 1, new TownLeaderboardInfo(t,
+                            t.getAccount().getHoldingFormattedBalance(),
+                            t.getMayor().getName()
+                    ));
+                } catch (Exception e) {
+                    throw new Exception("Unable to get Richest Town score for town: " + t.getName() + " (Town UUID: " + t.getUUID() + ")", e);
+                }
             }
 
         } catch (Exception e) {
-            getComponentLogger().error("Error unable to calculate scores for richest towns! Error message: {}", e.getMessage());
+            getComponentLogger().error("Error unable to calculate scores for richest towns! Error message: {} \nError Cause Message: {}", e.getMessage(), e.getCause().getMessage());
         }
 
         //most residents towns
@@ -248,13 +252,17 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownResidents.scores.put(i + 1, new TownLeaderboardInfo(t,
-                        String.valueOf(t.getNumResidents()),
-                        t.getMayor().getName()
-                ));
+                try {
+                    TownResidents.scores.put(i + 1, new TownLeaderboardInfo(t,
+                            String.valueOf(t.getNumResidents()),
+                            t.getMayor().getName()
+                    ));
+                } catch (Exception e) {
+                    throw new Exception("Unable to get Town Residents score for town: " + t.getName() + " (Town UUID: " + t.getUUID() + ")", e);
+                }
             }
         } catch (Exception e) {
-            getComponentLogger().error("Error unable to calculate scores for town's residents! Error message: {}", e.getMessage());
+            getComponentLogger().error("Error unable to calculate scores for town's residents! Error message: {} \nError Cause Message: {}", e.getMessage(), e.getCause().getMessage());
         }
 
         //most claims towns
@@ -267,13 +275,17 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < towns.size(); i++) {
                 Town t = towns.get(i);
-                TownLandClaimed.scores.put(i + 1, new TownLeaderboardInfo(t,
-                        String.valueOf(t.getNumTownBlocks()),
-                        t.getMayor().getName()
-                ));
+                try {
+                    TownLandClaimed.scores.put(i + 1, new TownLeaderboardInfo(t,
+                            String.valueOf(t.getNumTownBlocks()),
+                            t.getMayor().getName()
+                    ));
+                } catch (Exception e) {
+                    throw new Exception("Unable to get Town Claims score for town: " + t.getName() + " (Town UUID: " + t.getUUID() + ")", e);
+                }
             }
         } catch (Exception e) {
-            getComponentLogger().error("Error unable to calculate scores for town's land claimed! Error message: {}", e.getMessage());
+            getComponentLogger().error("Error unable to calculate scores for town's land claimed! Error message: {} \nError Cause Message: {}", e.getMessage(), e.getCause().getMessage());
         }
 
         //richest nations
@@ -286,13 +298,17 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < nations.size(); i++) {
                 Nation n = nations.get(i);
-                NationBank.scores.put(i + 1, new NationLeaderboardInfo(n,
-                        n.getAccount().getHoldingFormattedBalance(),
-                        n.getKing().getName()
-                ));
+                try {
+                    NationBank.scores.put(i + 1, new NationLeaderboardInfo(n,
+                            n.getAccount().getHoldingFormattedBalance(),
+                            n.getKing().getName()
+                    ));
+                } catch (Exception e) {
+                    throw new Exception("Unable to get Richest Nation score for nation: " + n.getName() + " (Nation UUID: " + n.getUUID() + ")", e);
+                }
             }
         } catch (Exception e) {
-            getComponentLogger().error("Error unable to calculate scores for richest nations! Error message: {}", e.getMessage());
+            getComponentLogger().error("Error unable to calculate scores for richest nations! Error message: {} \nError Cause Message: {}", e.getMessage(), e.getCause().getMessage());
         }
 
         //most residents nations
@@ -305,13 +321,17 @@ public class VorplexTownyCore extends JavaPlugin {
 
             for (int i = 0; i < nations.size(); i++) {
                 Nation n = nations.get(i);
-                NationResidents.scores.put(i + 1, new NationLeaderboardInfo(n,
-                        String.valueOf(n.getNumResidents()),
-                        n.getKing().getName()
-                ));
+                try {
+                    NationResidents.scores.put(i + 1, new NationLeaderboardInfo(n,
+                            String.valueOf(n.getNumResidents()),
+                            n.getKing().getName()
+                    ));
+                } catch (Exception e) {
+                    throw new Exception("Unable to get Nation Residents score for nation: " + n.getName() + " (Nation UUID: " + n.getUUID() + ")", e);
+                }
             }
         } catch (Exception e) {
-            getComponentLogger().error("Error unable to calculate scores for nation's residents! Error message: {}", e.getMessage());
+            getComponentLogger().error("Error unable to calculate scores for nation's residents! Error message: {} \nError Cause Message: {}", e.getMessage(), e.getCause().getMessage());
         }
     }
 }

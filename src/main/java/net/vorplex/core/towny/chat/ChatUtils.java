@@ -4,9 +4,11 @@ import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -14,8 +16,8 @@ import java.util.List;
 
 public class ChatUtils {
 
-    private static final String TOWN_CHAT_FORMAT = "<yellow>[<town>] <title><rank><sender>: <message>";
-    private static final String NATION_CHAT_FORMAT = "<aqua>[<nation>-<town>] <title><rank><sender>: <message>";
+    private static final String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
+    private static final String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
@@ -57,14 +59,16 @@ public class ChatUtils {
             return;
         }
         final Resident senderResident = TownyAPI.getInstance().getResident(player);
-        Town town = TownyAPI.getInstance().getTown(player);
+        final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
+        final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
+        final Town town = TownyAPI.getInstance().getTown(player);
         List<Resident> onlineResidents = town.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendRichMessage(TOWN_CHAT_FORMAT,
                         Placeholder.component("town", Component.text(town.getName())),
                         Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
                         Placeholder.component("rank", Component.text(senderResident.getHighestPriorityTownRank() != null ? senderResident.getHighestPriorityTownRank() + " " : "")),
-                        Placeholder.component("sender", Component.text(player.getName())),
+                        Placeholder.component("sender", nicknameComponent),
                         Placeholder.component("message", Component.text(message))
                 )
         );
@@ -77,7 +81,9 @@ public class ChatUtils {
             return;
         }
         final Resident senderResident = TownyAPI.getInstance().getResident(player);
-        Nation nation = TownyAPI.getInstance().getNation(player);
+        final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
+        final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
+        final Nation nation = TownyAPI.getInstance().getNation(player);
         List<Resident> onlineResidents = nation.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendRichMessage(NATION_CHAT_FORMAT,
@@ -85,7 +91,7 @@ public class ChatUtils {
                         Placeholder.component("town", Component.text(TownyAPI.getInstance().getTownName(player))),
                         Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
                         Placeholder.component("rank", Component.text(senderResident.getHighestPriorityNationRank() != null ? senderResident.getHighestPriorityNationRank() + " " : "")),
-                        Placeholder.component("sender", Component.text(player.getName())),
+                        Placeholder.component("sender", nicknameComponent),
                         Placeholder.component("message", Component.text(message))
                 )
         );

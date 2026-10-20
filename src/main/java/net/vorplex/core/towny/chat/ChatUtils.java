@@ -58,6 +58,8 @@ public class ChatUtils {
             player.sendMessage(Component.text("Sorry you are not in a town so you can't use town chat!").color(NamedTextColor.RED));
             return;
         }
+
+        Component finalMessage = ChatShareHook.applyTags(player, Component.text(message));
         final Resident senderResident = TownyAPI.getInstance().getResident(player);
         final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
         final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
@@ -69,7 +71,7 @@ public class ChatUtils {
                         Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
                         Placeholder.component("rank", Component.text(senderResident.getHighestPriorityTownRank() != null ? senderResident.getHighestPriorityTownRank() + " " : "")),
                         Placeholder.component("sender", nicknameComponent),
-                        Placeholder.component("message", Component.text(message))
+                        Placeholder.component("message", finalMessage)
                 )
         );
     }
@@ -80,6 +82,7 @@ public class ChatUtils {
             player.sendMessage(Component.text("Sorry you are not in a nation so you can't use nation chat!").color(NamedTextColor.RED));
             return;
         }
+        Component finalMessage = ChatShareHook.applyTags(player, Component.text(message));
         final Resident senderResident = TownyAPI.getInstance().getResident(player);
         final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
         final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
@@ -92,7 +95,7 @@ public class ChatUtils {
                         Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
                         Placeholder.component("rank", Component.text(senderResident.getHighestPriorityNationRank() != null ? senderResident.getHighestPriorityNationRank() + " " : "")),
                         Placeholder.component("sender", nicknameComponent),
-                        Placeholder.component("message", Component.text(message))
+                        Placeholder.component("message", finalMessage)
                 )
         );
     }

@@ -7,8 +7,10 @@ import com.palmergames.bukkit.towny.object.Town;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.vorplex.core.towny.VorplexTownyCore;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -59,21 +61,26 @@ public class ChatUtils {
             return;
         }
 
+
         Component finalMessage = ChatShareHook.applyTags(player, Component.text(message));
         final Resident senderResident = TownyAPI.getInstance().getResident(player);
         final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
         final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
         final Town town = TownyAPI.getInstance().getTown(player);
+
+        Component builtMessage = MiniMessage.miniMessage().deserialize(TOWN_CHAT_FORMAT,
+                Placeholder.component("town", Component.text(town.getName())),
+                Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
+                Placeholder.component("rank", Component.text(senderResident.getHighestPriorityTownRank() != null ? senderResident.getHighestPriorityTownRank() + " " : "")),
+                Placeholder.component("sender", nicknameComponent),
+                Placeholder.component("message", finalMessage)
+        );
+
         List<Resident> onlineResidents = town.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
-                resident.getPlayer().sendRichMessage(TOWN_CHAT_FORMAT,
-                        Placeholder.component("town", Component.text(town.getName())),
-                        Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
-                        Placeholder.component("rank", Component.text(senderResident.getHighestPriorityTownRank() != null ? senderResident.getHighestPriorityTownRank() + " " : "")),
-                        Placeholder.component("sender", nicknameComponent),
-                        Placeholder.component("message", finalMessage)
-                )
+                resident.getPlayer().sendMessage(builtMessage)
         );
+        VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
     }
 
 
@@ -87,16 +94,20 @@ public class ChatUtils {
         final String senderNickname = PlaceholderAPI.setPlaceholders(player, "%hexnicks_nick%");
         final Component nicknameComponent = LegacyComponentSerializer.legacySection().deserialize(senderNickname);
         final Nation nation = TownyAPI.getInstance().getNation(player);
+
+        Component builtMessage = MiniMessage.miniMessage().deserialize(NATION_CHAT_FORMAT,
+                Placeholder.component("nation", Component.text(nation.getName())),
+                Placeholder.component("town", Component.text(TownyAPI.getInstance().getTownName(player))),
+                Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
+                Placeholder.component("rank", Component.text(senderResident.getHighestPriorityNationRank() != null ? senderResident.getHighestPriorityNationRank() + " " : "")),
+                Placeholder.component("sender", nicknameComponent),
+                Placeholder.component("message", finalMessage)
+        );
+
         List<Resident> onlineResidents = nation.getResidents().stream().filter((Resident resident) -> resident.getPlayer() != null && resident.isOnline() && resident.getPlayer().isOnline()).toList();
         onlineResidents.forEach(resident ->
-                resident.getPlayer().sendRichMessage(NATION_CHAT_FORMAT,
-                        Placeholder.component("nation", Component.text(nation.getName())),
-                        Placeholder.component("town", Component.text(TownyAPI.getInstance().getTownName(player))),
-                        Placeholder.component("title", Component.text(senderResident.getTitle() != null && !senderResident.getTitle().trim().isEmpty() ? senderResident.getTitle().trim() + " " : "")),
-                        Placeholder.component("rank", Component.text(senderResident.getHighestPriorityNationRank() != null ? senderResident.getHighestPriorityNationRank() + " " : "")),
-                        Placeholder.component("sender", nicknameComponent),
-                        Placeholder.component("message", finalMessage)
-                )
+                resident.getPlayer().sendMessage(builtMessage)
         );
+        VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
     }
 }

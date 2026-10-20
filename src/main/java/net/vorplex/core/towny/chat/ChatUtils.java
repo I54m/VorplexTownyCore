@@ -11,10 +11,10 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.vorplex.core.towny.VorplexTownyCore;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ChatUtils {
 
@@ -23,6 +23,9 @@ public class ChatUtils {
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
+    // first UUID for both spyOnTown and spyOnNation are player second is Town/Nation
+    public static Map<UUID, UUID> spyOnTown = new HashMap<UUID, UUID>();
+    public static Map<UUID, UUID> spyOnNation = new HashMap<UUID, UUID>();
 
     public static boolean isTownChatOn(Player player) {
         return townChat.contains(player);
@@ -80,6 +83,16 @@ public class ChatUtils {
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendMessage(builtMessage)
         );
+
+        for (Map.Entry<UUID, UUID> entry : spyOnTown.entrySet()) {
+            if (entry.getValue() != town.getUUID()) continue;
+
+            Player admin = Bukkit.getPlayer(entry.getKey());
+
+            if (admin == null) continue;
+
+            admin.sendMessage(builtMessage);
+        }
         VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
     }
 
@@ -108,6 +121,17 @@ public class ChatUtils {
         onlineResidents.forEach(resident ->
                 resident.getPlayer().sendMessage(builtMessage)
         );
+
+        for (Map.Entry<UUID, UUID> entry : spyOnNation.entrySet()) {
+            if (entry.getValue() != nation.getUUID()) continue;
+
+            Player admin = Bukkit.getPlayer(entry.getKey());
+
+            if (admin == null) continue;
+
+            admin.sendMessage(builtMessage);
+        }
+
         VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
     }
 }

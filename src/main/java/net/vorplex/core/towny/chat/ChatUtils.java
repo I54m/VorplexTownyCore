@@ -18,8 +18,8 @@ import java.util.List;
 
 public class ChatUtils {
 
-    private static final String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
-    private static final String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
+    private static String TOWN_CHAT_FORMAT = "";
+    private static String NATION_CHAT_FORMAT = "";
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
@@ -29,6 +29,14 @@ public class ChatUtils {
     }
     public static boolean isNationChatOn(Player player) {
         return nationChat.contains(player);
+    }
+
+    public static void setup()
+    {
+        TOWN_CHAT_FORMAT = VorplexTownyCore.getInstance()
+                .getConfig().getString("chat_formats.town_chat", "<yellow>[<b><town></b>] <title><rank><sender>: <message>");
+        NATION_CHAT_FORMAT = VorplexTownyCore.getInstance()
+                .getConfig().getString("chat_formats.nation_chat", "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>");
     }
 
     public static boolean notInTown(Player player) {

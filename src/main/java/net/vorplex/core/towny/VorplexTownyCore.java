@@ -88,7 +88,7 @@ public class VorplexTownyCore extends JavaPlugin {
         }
 
         LoadLeaderboardSigns();
-        
+        ChatUtils.setup();
         getComponentLogger().info(Component.text("Registering Commands...").color(NamedTextColor.GREEN));
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(GiveCommand.COMMAND_NODE);

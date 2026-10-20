@@ -30,3 +30,6 @@ permissions:
   vorplexcore.towny.leaderboards.signs.remove:
     description: allows the player to remove leaderboard signs.
     default: op
+  vorplexcore.towny.spy:
+    description: allows player to spy with /townspy and /nationspy
+    default: op

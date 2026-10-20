@@ -16,6 +16,9 @@ dependencies:
     PlaceholderAPI:
       load: BEFORE
       required: true
+    ChatShare:
+      load: BEFORE
+      required: false
 
 permissions:
   vorplexcore.towny.plotvouchers.give:

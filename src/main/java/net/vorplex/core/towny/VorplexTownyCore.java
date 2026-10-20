@@ -16,10 +16,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.vorplex.core.towny.chat.AsyncChatListener;
-import net.vorplex.core.towny.chat.ChatUtils;
-import net.vorplex.core.towny.chat.NationChatCommand;
-import net.vorplex.core.towny.chat.TownChatCommand;
+import net.vorplex.core.towny.chat.*;
 import net.vorplex.core.towny.leaderboards.nations.NationBank;
 import net.vorplex.core.towny.leaderboards.nations.NationResidents;
 import net.vorplex.core.towny.leaderboards.objects.NationLeaderboardInfo;
@@ -83,9 +80,15 @@ public class VorplexTownyCore extends JavaPlugin {
             getComponentLogger().error("Towny has not been detected!");
             throw new IllegalStateException("Towny is required for this plugin to run!");
         } else getComponentLogger().info(Component.text("Towny Detected!").color(NamedTextColor.GREEN));
+        if (Bukkit.getPluginManager().getPlugin("ChatShare") == null) {
+            getComponentLogger().error("ChatShare has not been detected! Chat tags Disabled");
+        } else {
+            getComponentLogger().info(Component.text("ChatShare Detected!").color(NamedTextColor.GREEN));
+            ChatShareHook.setup(Bukkit.getPluginManager().getPlugin("ChatShare"));
+        }
 
         LoadLeaderboardSigns();
-
+        
         getComponentLogger().info(Component.text("Registering Commands...").color(NamedTextColor.GREEN));
         this.getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, commands -> {
             commands.registrar().register(GiveCommand.COMMAND_NODE);

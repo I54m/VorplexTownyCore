@@ -1,0 +1,15 @@
+
+chat_formats:
+  # <title> title
+  # <rank> town/nation rank
+  # <town> name of players town
+  # <nation> name of players nation
+  # <sender> player that sent message
+  # <message> players message
+  #
+  # OLD DEFAULTS
+  # Town: "<yellow>[<b><town></b>] <title><rank><sender>: <message>"
+  # Nation: "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>"
+  town_chat: "<gray>[<b><yellow><town><gray></b>] <yellow><title><rank><sender><gray>: <yellow><message>"
+  nation_chat: "<gray>[<b><aqua><nation>-<town></b><gray>] <aqua><title><rank><sender><gray>: <aqua><message>"
+  

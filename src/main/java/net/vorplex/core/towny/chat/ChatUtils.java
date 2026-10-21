@@ -13,13 +13,15 @@ import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.vorplex.core.towny.VorplexTownyCore;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
 public class ChatUtils {
 
-    private static final String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
-    private static final String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
+    private static final Plugin mainPlugin = VorplexTownyCore.getInstance();
+    private static String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
+    private static String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
@@ -32,6 +34,14 @@ public class ChatUtils {
     }
     public static boolean isNationChatOn(Player player) {
         return nationChat.contains(player);
+    }
+
+    public static void loadFormats()
+    {
+        TOWN_CHAT_FORMAT = mainPlugin
+                .getConfig().getString("chat_formats.town_chat", "<yellow>[<b><town></b>] <title><rank><sender>: <message>");
+        NATION_CHAT_FORMAT = mainPlugin
+                .getConfig().getString("chat_formats.nation_chat", "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>");
     }
 
     public static boolean notInTown(Player player) {

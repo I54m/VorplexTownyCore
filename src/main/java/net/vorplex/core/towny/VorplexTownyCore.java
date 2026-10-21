@@ -100,6 +100,7 @@ public class VorplexTownyCore extends JavaPlugin {
             commands.registrar().register(NationChatCommand.COMMAND_NODE, List.of("nc", "chatnation"));
             commands.registrar().register(TownSpyCommand.COMMAND_NODE, List.of("spytc", "spytown"));
             commands.registrar().register(NationSpyCommand.COMMAND_NODE, List.of("spync", "spynation"));
+            commands.registrar().register(ReloadCommand.COMMAND_NODE);
         });
         getComponentLogger().info(Component.text("Registered Commands!").color(NamedTextColor.GREEN));
 

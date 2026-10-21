@@ -9,7 +9,7 @@ import net.vorplex.core.towny.VorplexTownyCore;
 
 public class ReloadCommand {
 
-    public static final LiteralCommandNode<CommandSourceStack> COMMAND_NODE = Commands.literal("vorplexcore reload")
+    public static final LiteralCommandNode<CommandSourceStack> COMMAND_NODE = Commands.literal("vorplextownycore reload")
             .requires(ctx -> ctx.getSender().hasPermission("vorplexcore.towny.reload"))
             .executes(ReloadCommand::reloadCommand).build();
 

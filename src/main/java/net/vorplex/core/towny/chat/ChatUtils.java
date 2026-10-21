@@ -107,9 +107,9 @@ public class ChatUtils {
 
             if (admin == null) continue;
 
-            admin.sendMessage(builtMessage);
+            admin.sendMessage(spyMessage);
         }
-        VorplexTownyCore.getInstance().getComponentLogger().info(spyMessage);
+        VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
     }
 
 

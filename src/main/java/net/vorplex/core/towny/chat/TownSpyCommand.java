@@ -29,7 +29,7 @@ public class TownSpyCommand {
 
     private static int stopSpy(final CommandContext<CommandSourceStack> ctx) {
         final Player player = (Player) ctx.getSource().getSender();
-        final UUID previous = ChatUtils.spyOnTown.remove(player.getUniqueId());
+        final Town previous = ChatUtils.spyOnTown.remove(player.getUniqueId());
 
         if (previous == null) {
             player.sendRichMessage("<red>You aren't spying on any town.");
@@ -50,7 +50,7 @@ public class TownSpyCommand {
             return Command.SINGLE_SUCCESS;
         }
 
-        ChatUtils.spyOnTown.put(player.getUniqueId(), town.getUUID());
+        ChatUtils.spyOnTown.put(player.getUniqueId(), town);
         player.sendRichMessage("<green>Now spying on <town>'s town chat.",
                 Placeholder.unparsed("town", town.getName()));
         return Command.SINGLE_SUCCESS;

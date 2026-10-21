@@ -12,4 +12,5 @@ chat_formats:
   # Nation: "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>"
   town_chat: "<gray>[<b><yellow><town><gray></b>] <yellow><title><rank><sender><gray>: <yellow><message>"
   nation_chat: "<gray>[<b><aqua><nation>-<town></b><gray>] <aqua><title><rank><sender><gray>: <aqua><message>"
+  spy_chat_prefix: "<red>spy <gray>| "
   

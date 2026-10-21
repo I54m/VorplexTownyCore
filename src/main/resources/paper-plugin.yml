@@ -33,4 +33,6 @@ permissions:
   vorplexcore.towny.reload:
     description: reloads config.
     default: op
-
+  vorplexcore.towny.spy:
+    description: allows player to run /townyspy {town} | no town toggles townyspy off.
+    default: op

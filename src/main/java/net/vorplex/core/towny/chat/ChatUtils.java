@@ -12,14 +12,16 @@ import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.vorplex.core.towny.VorplexTownyCore;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatUtils {
 
-    private static String TOWN_CHAT_FORMAT = "";
-    private static String NATION_CHAT_FORMAT = "";
+    private static final Plugin mainPlugin = VorplexTownyCore.getInstance();
+    private static String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
+    private static String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
@@ -31,11 +33,11 @@ public class ChatUtils {
         return nationChat.contains(player);
     }
 
-    public static void setup()
+    public static void loadFormats()
     {
-        TOWN_CHAT_FORMAT = VorplexTownyCore.getInstance()
+        TOWN_CHAT_FORMAT = mainPlugin
                 .getConfig().getString("chat_formats.town_chat", "<yellow>[<b><town></b>] <title><rank><sender>: <message>");
-        NATION_CHAT_FORMAT = VorplexTownyCore.getInstance()
+        NATION_CHAT_FORMAT = mainPlugin
                 .getConfig().getString("chat_formats.nation_chat", "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>");
     }
 

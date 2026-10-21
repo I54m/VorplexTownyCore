@@ -24,8 +24,8 @@ public class ChatUtils {
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
     // first UUID for both spyOnTown and spyOnNation are player second is Town/Nation
-    public static Map<UUID, UUID> spyOnTown = new HashMap<UUID, UUID>();
-    public static Map<UUID, UUID> spyOnNation = new HashMap<UUID, UUID>();
+    public static Map<UUID, Town> spyOnTown = new HashMap<UUID, Town>();
+    public static Map<UUID, Nation> spyOnNation = new HashMap<UUID, Nation>();
 
     public static boolean isTownChatOn(Player player) {
         return townChat.contains(player);
@@ -84,8 +84,8 @@ public class ChatUtils {
                 resident.getPlayer().sendMessage(builtMessage)
         );
 
-        for (Map.Entry<UUID, UUID> entry : spyOnTown.entrySet()) {
-            if (entry.getValue() != town.getUUID()) continue;
+        for (Map.Entry<UUID, Town> entry : spyOnTown.entrySet()) {
+            if (entry.getValue() != town) continue;
 
             Player admin = Bukkit.getPlayer(entry.getKey());
 
@@ -122,8 +122,8 @@ public class ChatUtils {
                 resident.getPlayer().sendMessage(builtMessage)
         );
 
-        for (Map.Entry<UUID, UUID> entry : spyOnNation.entrySet()) {
-            if (entry.getValue() != nation.getUUID()) continue;
+        for (Map.Entry<UUID, Nation> entry : spyOnNation.entrySet()) {
+            if (entry.getValue() != nation) continue;
 
             Player admin = Bukkit.getPlayer(entry.getKey());
 

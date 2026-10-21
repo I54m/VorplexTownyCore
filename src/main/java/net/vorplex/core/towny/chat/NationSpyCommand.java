@@ -29,7 +29,7 @@ public class NationSpyCommand {
 
     private static int stopSpy(final CommandContext<CommandSourceStack> ctx) {
         final Player player = (Player) ctx.getSource().getSender();
-        final UUID previous = ChatUtils.spyOnNation.remove(player.getUniqueId());
+        final Nation previous = ChatUtils.spyOnNation.remove(player.getUniqueId());
 
         if (previous == null) {
             player.sendRichMessage("<red>You aren't spying on any nation.");
@@ -50,7 +50,7 @@ public class NationSpyCommand {
             return Command.SINGLE_SUCCESS;
         }
 
-        ChatUtils.spyOnNation.put(player.getUniqueId(), nation.getUUID());
+        ChatUtils.spyOnNation.put(player.getUniqueId(), nation);
         player.sendRichMessage("<green>Now spying on <nation>'s nation chat.",
                 Placeholder.unparsed("nation", nation.getName()));
         return Command.SINGLE_SUCCESS;

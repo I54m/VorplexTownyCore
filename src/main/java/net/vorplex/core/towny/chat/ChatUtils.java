@@ -22,6 +22,7 @@ public class ChatUtils {
     private static final Plugin mainPlugin = VorplexTownyCore.getInstance();
     private static String TOWN_CHAT_FORMAT = "<yellow>[<b><town></b>] <title><rank><sender>: <message>";
     private static String NATION_CHAT_FORMAT = "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>";
+    private static String SPY_PREFIX = "<red>spy <gray>|";
 
     public static List<Player> townChat = new ArrayList<>();
     public static List<Player> nationChat = new ArrayList<>();
@@ -42,6 +43,8 @@ public class ChatUtils {
                 .getConfig().getString("chat_formats.town_chat", "<yellow>[<b><town></b>] <title><rank><sender>: <message>");
         NATION_CHAT_FORMAT = mainPlugin
                 .getConfig().getString("chat_formats.nation_chat", "<aqua>[<b><nation>-<town></b>] <title><rank><sender>: <message>");
+        SPY_PREFIX = mainPlugin
+                .getConfig().getString("chat_formats.spy_chat_prefix", "<red>spy <gray>|");
     }
 
     public static boolean notInTown(Player player) {
@@ -94,6 +97,9 @@ public class ChatUtils {
                 resident.getPlayer().sendMessage(builtMessage)
         );
 
+        Component spyMessage = Component.textOfChildren(MiniMessage.miniMessage().deserialize(SPY_PREFIX),
+                                                        finalMessage);
+
         for (Map.Entry<UUID, Town> entry : spyOnTown.entrySet()) {
             if (entry.getValue() != town) continue;
 
@@ -103,7 +109,7 @@ public class ChatUtils {
 
             admin.sendMessage(builtMessage);
         }
-        VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
+        VorplexTownyCore.getInstance().getComponentLogger().info(spyMessage);
     }
 
 
@@ -132,6 +138,9 @@ public class ChatUtils {
                 resident.getPlayer().sendMessage(builtMessage)
         );
 
+        Component spyMessage = Component.textOfChildren(MiniMessage.miniMessage().deserialize(SPY_PREFIX),
+                finalMessage);
+
         for (Map.Entry<UUID, Nation> entry : spyOnNation.entrySet()) {
             if (entry.getValue() != nation) continue;
 
@@ -139,7 +148,7 @@ public class ChatUtils {
 
             if (admin == null) continue;
 
-            admin.sendMessage(builtMessage);
+            admin.sendMessage(spyMessage);
         }
 
         VorplexTownyCore.getInstance().getComponentLogger().info(builtMessage);
